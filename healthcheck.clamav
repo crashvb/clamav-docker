@@ -1,0 +1,8 @@
+#!/bin/bash
+
+set -e
+
+log "Checking if $(basename $0) is healthy ..."
+echo PING >/dev/tcp/127.0.0.1/3310
+exit $?
+
