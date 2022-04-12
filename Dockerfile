@@ -18,7 +18,7 @@ RUN docker-apt clamav-daemon clamav-freshclam clamav-milter clamdscan libclamunr
 
 # Configure: clamav
 ENV CLAMAV_CONFIG=/etc/clamav CLAMAV_DATA=/var/lib/clamav CLAMAV_UPDATE_INTERVAL=2
-ADD clamav-* /usr/local/bin/
+COPY clamav-* /usr/local/bin/
 RUN install --directory --group=root --mode=0775 --owner=root /usr/local/share/clamav && \
 	install --directory --group=clamav --mode=0750 --owner=clamav /run/clamav && \
 	sed --expression="/^CommandReadTimeout /cCommandReadTimeout 30" \
@@ -58,13 +58,13 @@ RUN install --directory --group=root --mode=0775 --owner=root /usr/local/share/c
 	mv ${CLAMAV_CONFIG} /usr/local/share/clamav/config
 
 # Configure: supervisor
-ADD supervisord.clamav.conf /etc/supervisor/conf.d/clamav.conf
+COPY supervisord.clamav.conf /etc/supervisor/conf.d/clamav.conf
 
 # Configure: entrypoint
-ADD entrypoint.clamav /etc/entrypoint.d/clamav
+COPY entrypoint.clamav /etc/entrypoint.d/clamav
 
 # Configure: healthcheck
-ADD healthcheck.clamav /etc/healthcheck.d/clamav
+COPY healthcheck.clamav /etc/healthcheck.d/clamav
 
 EXPOSE 3310/tcp 7357/tcp
 
