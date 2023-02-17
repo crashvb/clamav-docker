@@ -1,10 +1,10 @@
-FROM crashvb/supervisord:202201080446@sha256:8fe6a411bea68df4b4c6c611db63c22f32c4a455254fa322f381d72340ea7226
+FROM crashvb/supervisord:202302172026@sha256:50dc33115f72bbb9e00dce460e2297fdad67e07cc7fca44f3e35cade92e27058
 ARG org_opencontainers_image_created=undefined
 ARG org_opencontainers_image_revision=undefined
 LABEL \
 	org.opencontainers.image.authors="Richard Davis <crashvb@gmail.com>" \
-	org.opencontainers.image.base.digest="sha256:8fe6a411bea68df4b4c6c611db63c22f32c4a455254fa322f381d72340ea7226" \
-	org.opencontainers.image.base.name="crashvb/supervisord:202201080446" \
+	org.opencontainers.image.base.digest="sha256:50dc33115f72bbb9e00dce460e2297fdad67e07cc7fca44f3e35cade92e27058" \
+	org.opencontainers.image.base.name="crashvb/supervisord:202302172026" \
 	org.opencontainers.image.created="${org_opencontainers_image_created}" \
 	org.opencontainers.image.description="Image containing clamav." \
 	org.opencontainers.image.licenses="Apache-2.0" \
@@ -19,6 +19,7 @@ RUN docker-apt clamav-daemon clamav-freshclam clamav-milter clamdscan libclamunr
 # Configure: clamav
 ENV CLAMAV_CONFIG=/etc/clamav CLAMAV_DATA=/var/lib/clamav CLAMAV_UPDATE_INTERVAL=2
 COPY clamav-* /usr/local/bin/
+# hadolint ignore=DL4006
 RUN install --directory --group=root --mode=0775 --owner=root /usr/local/share/clamav && \
 	install --directory --group=clamav --mode=0750 --owner=clamav /run/clamav && \
 	sed --expression="/^CommandReadTimeout /cCommandReadTimeout 30" \

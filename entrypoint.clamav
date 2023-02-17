@@ -1,23 +1,23 @@
 #!/bin/bash
 
-set -e
+set -e -o pipefail
 
 # Configure: clamav
-if [[ ! -e $EP_RUN ]] ; then
-	log "Configuring $(basename $0) for first run ..."
+if [[ ! -e "${EP_RUN}" ]] ; then
+	log "Configuring $(basename "${0}") for first run ..."
 
 	# Volume initialization
-	if [[ ! -f $CLAMAV_CONFIG/clamav.conf ]] ; then
+	if [[ ! -f "${CLAMAV_CONFIG}/clamav.conf" ]] ; then
 		log "Initializing data volume ..."
-		cp --no-clobber --recursive /usr/local/share/clamav/config/* $CLAMAV_CONFIG/
+		cp --no-clobber --recursive /usr/local/share/clamav/config/* "${CLAMAV_CONFIG}"/
 
-		if [[ ! -e $CLAMAV_DATA/main.cvd ]] ; then
+		if [[ ! -e "${CLAMAV_DATA}/main.cvd" ]] ; then
 			log "Initalizing database ..."
 			/usr/bin/freshclam --foreground --stdout
 		fi
 
 		log "Applying ownership and permissions ..."
-		find ${CLAMAV_CONFIG} \( \! -user clamav -o \! -group clamav \) -exec chown clamav:clamav {} \;
+		find "${CLAMAV_CONFIG}" \( \! -user clamav -o \! -group clamav \) -exec chown clamav:clamav {} \;
 	else
 		log "Skipping data volume initialization ..."
 	fi
