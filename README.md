@@ -20,14 +20,6 @@ The embedded entrypoint script is located at `/etc/entrypoint.d/clamav` and perf
  | Variable | Default Value | Description |
  | -------- | ------------- | ----------- |
 
-## Healthcheck Scripts
-
-### clamav
-
-The embedded healthcheck script is located at `/etc/healthcheck.d/clamav` and performs the following actions:
-
-1. Verifies that all clamav services are operational.
-
 ## Standard Configuration
 
 ### Container Layout
