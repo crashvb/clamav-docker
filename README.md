@@ -30,8 +30,11 @@ The embedded entrypoint script is located at `/etc/entrypoint.d/clamav` and perf
 │  ├─ clamav/
 │  ├─ entrypoint.d/
 │  │  └─ clamav
-│  └─ healthcheck.d/
-│     └─ clamav
+│  ├─ healthcheck.d/
+│  │  └─ clamav
+│  └─ supervisor/
+│     └─ config.d/
+│        └─ clamav.conf
 └─ usr/
    ├─ bin/
    │  └─ clamdtop
